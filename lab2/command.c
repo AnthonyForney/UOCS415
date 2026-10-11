@@ -89,7 +89,6 @@ void listDir()
 
     char s1[] = "output.txt";
     char s2[] = "output_reference.txt";
-    int file_count = 0;
     
     while((entry = readdir(dir)) != NULL) {
         if(stat(entry->d_name,&sb) == -1 ||
@@ -131,7 +130,7 @@ void listDir()
     /* TODO 6: Print the names with write(): each name followed by " ",
      * then one "\n" at the end.
      * Hint: write(STDOUT_FILENO, str, strlen(str)) */
-    for(int i = 0; i < file_count, i++){
+    for(int i = 0; i < file_count; i++){
         write(STDOUT_FILENO, files[i],strlen(files[i]));
         write(STDOUT_FILENO, " ", 1);
     }
@@ -139,7 +138,7 @@ void listDir()
 
     /* TODO 7: Free the memory.
      * Hint: free each files[i] (from strdup). */
-    for(int i; i < file_count; i++){
+    for(int i = 0; i < file_count; i++){
         free(files[i]);
     }
 }

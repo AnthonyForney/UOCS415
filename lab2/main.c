@@ -78,7 +78,8 @@ int main(int argc, char* argv[]){
              * no command to run. Skip to the next loop iteration.
              * Hint: what happens if you read cmd.command_list[0] here? */
             if(cmd.num_token == 0){
-                continue;
+                free_command_line(&cmd);
+	    	continue;
             }
 
             /* TODO 5: Run the command.
@@ -99,9 +100,11 @@ int main(int argc, char* argv[]){
                 free_command_line(&cmd);
                 exit(0);
             }
-        else{
-            printf("Error! Unrecognized command: %s\n", cmd.command_list[0]);
-        }
+            else{
+            	write(STDOUT_FILENO,"Error! Unrecognized command: ", strlen("Error! Unrecognized command: "));
+	    	write(STDOUT_FILENO, cmd.command_list[0], strlen(cmd.command_list[0]));
+	    	write(STDOUT_FILENO, "\n", 1);
+            }
             /* TODO 6: Free this command's tokens before the next loop. */
         free_command_line(&cmd);
         }
@@ -145,7 +148,8 @@ int main(int argc, char* argv[]){
             cmd = str_filler(line, delim);
 
             if(cmd.num_token == 0){
-                continue;
+                free_command_line(&cmd);
+	    	continue;
             }
 
             if(strcmp(cmd.command_list[0], "ls") == 0){
@@ -160,7 +164,9 @@ int main(int argc, char* argv[]){
             }
 
             else{
-                printf("Error! Unrecognized command: %s\n", cmd.command_list[0]);
+                write(STDOUT_FILENO,"Error! Unrecognized command: ", strlen("Error! Unrecognized command: "));
+		write(STDOUT_FILENO, cmd.command_list[0], strlen(cmd.command_list[0]));
+		write(STDOUT_FILENO, "\n", 1);
             }
         
             free_command_line(&cmd);
@@ -170,7 +176,7 @@ int main(int argc, char* argv[]){
          * Hint: the "exit" command inside the loop leaves the program
          *       early, so fin has to be closed there too. */
         fclose(fin);
-        }
+    }
     free(line);
     /* TODO 11 (optional): Handle bad arguments, e.g. "./lab2 -x" or
      * "./lab2 -f" with no file. Print a usage message and return 1.
