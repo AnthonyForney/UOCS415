@@ -182,7 +182,7 @@ void read_io(pid_t pid) {
             sscanf(line,"read_bytes: %ld", &read_b);
         }
         else if(strncmp(line, "write_bytes:", strlen("write_bytes:")) == 0){
-            sscanf(line, "read_bytes: %ld", &write_b);
+            sscanf(line, "write_bytes: %ld", &write_b);
         }
     }
     // TODO 3: Close the file.
